@@ -1,0 +1,17 @@
+flowchart TB
+    user((Internet User)) --> alb[Application Load Balancer
+Public subnets across 2 AZs]
+    alb --> tg[Target Group
+HTTP health checks]
+    tg --> ec2a[EC2 Web VM A
+NGINX]
+    tg --> ec2b[EC2 Web VM B
+NGINX]
+    asg[Auto Scaling Group
+min=2 desired=2 max=3
+self-healing replacement] -. manages .-> ec2a
+    asg -. manages .-> ec2b
+    lt[Launch Template
+AMI + user-data] --> asg
+    vpc[VPC: public subnets only
+no NAT Gateway for low cost] --- alb
