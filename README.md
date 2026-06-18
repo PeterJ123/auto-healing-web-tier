@@ -137,7 +137,7 @@ Default tags include `Project`, `Environment`, `ManagedBy`, `Owner` and `CostCen
 
 ## CI pipeline
 
-`.github/workflows/terraform.yml` runs:
+`docs/terraform-github-actions.yml` is included as an optional GitHub Actions pipeline template. Copy it to `.github/workflows/terraform.yml` to enable it. It runs:
 
 - Terraform format check
 - Terraform init without backend
