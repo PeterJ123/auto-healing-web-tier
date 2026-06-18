@@ -1,0 +1,29 @@
+#!/bin/bash
+set -euxo pipefail
+
+cat >/tmp/index.html <<'HTML'
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><title>Auto-healing web tier</title></head>
+<body>
+  <h1>Welcome from the auto-healing web tier</h1>
+  <p>This page is served by an EC2 instance in an AWS Auto Scaling Group behind an Application Load Balancer.</p>
+  <p>Instance ID: <span id="instance-id">loading</span></p>
+  <script>fetch('http://169.254.169.254/latest/meta-data/instance-id').then(r=>r.text()).then(t=>document.getElementById('instance-id').textContent=t).catch(()=>{});</script>
+</body>
+</html>
+HTML
+
+if [ "${use_container}" = "true" ]; then
+  dnf update -y
+  dnf install -y docker
+  systemctl enable --now docker
+  docker pull "${container_image}"
+  docker rm -f auto-healing-web || true
+  docker run -d --restart unless-stopped --name auto-healing-web -p 80:80 "${container_image}"
+else
+  dnf update -y
+  dnf install -y nginx
+  cp /tmp/index.html /usr/share/nginx/html/index.html
+  systemctl enable --now nginx
+fi
