@@ -10,7 +10,7 @@ def test_required_deliverables_exist():
         "README.md", "versions.tf", "providers.tf", "main.tf", "variables.tf", "outputs.tf",
         "modules/network/main.tf", "modules/security/main.tf", "modules/load_balancer/main.tf",
         "modules/compute/main.tf", "user-data/web.sh.tftpl", "Dockerfile",
-        "diagrams/architecture.mmd", "docs/cost-estimate.md", ".github/workflows/terraform.yml",
+        "diagrams/architecture.mmd", "docs/cost-estimate.md", "docs/terraform-github-actions.yml",
     ]
     missing = [p for p in required if not (ROOT / p).exists()]
     assert missing == []
