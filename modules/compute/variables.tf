@@ -1,0 +1,10 @@
+variable "name_prefix" { type = string }
+variable "instance_type" { type = string }
+variable "subnet_ids" { type = list(string) }
+variable "instance_security_group_id" { type = string }
+variable "target_group_arns" { type = list(string) }
+variable "asg_min_size" { type = number }
+variable "asg_desired_capacity" { type = number }
+variable "asg_max_size" { type = number }
+variable "use_container" { type = bool }
+variable "container_image" { type = string }
