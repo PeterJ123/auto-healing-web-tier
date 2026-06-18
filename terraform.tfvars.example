@@ -1,0 +1,10 @@
+aws_region           = "ap-southeast-2"
+project              = "auto-healing-web"
+environment          = "demo"
+owner                = "Pingjun Cao"
+instance_type        = "t4g.nano"
+asg_min_size         = 2
+asg_desired_capacity = 2
+asg_max_size         = 3
+use_container        = false
+# container_image    = "ghcr.io/peterj123/auto-healing-web-tier:latest"
